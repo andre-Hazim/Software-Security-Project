@@ -1,7 +1,48 @@
+from enum import Enum
+class Rights(Enum):
+    
+    CLIENT = ["R--", "---", "---", "R--", "R--", "---", "---", "---", "---", "---"]
+    PREMIUM_CLIENT = ["R--", "---", "---", "RW-", "R--", "R--", "---", "---", "---", "---"]
+    FINANCIAL_PLANNER =["R--", "---", "---", "RW-", "---", "---", "R--", "R--", "---", "---"]
+    FINANCIAL_ADVISOR = ["R--", "---", "---", "RW-", "RW-", "---", "R--", "---", "---", "---"]
+    INVESTMENT_ANALYST = ["R--", "---", "---", "RW-", "---", "RW-", "R--", "R--", "R--", "---"]
+    TECHNICAL_SUPPORT = ["---", "R--", "--X", "---", "---", "---", "---", "---", "---", "---"]
+    TELLER = ["R--", "---", "---", "R--", "---", "---", "---", "---", "---", "R-X"]
+    COMPLIANCE_OFFICER = ["R--", "---", "---", "R--", "---", "---", "---", "---", "---", "---"]
+
+class Roles(Enum):
+    CLIENT = "Client"
+    PREMIUM_CLIENT = "Premium Client"
+    FINANCIAL_PLANNER = "Financial Planner"
+    FINANCIAL_ADVISOR = "Financial Advisor"
+    INVESTMENT_ANALYST = "Investment Analyst"
+    TECHNICAL_SUPPORT = "Technical Support"
+    TELLER = "Teller"
+    COMPLIANCE_OFFICER = "Compliance Officer"
+
+class Resources(Enum):
+    AB = "AB"
+    CI = "CI"
+    RAC = "RAC"
+    IP = "IP"
+    FAD = "FAD"
+    IAD = "IAD"
+    PCI = "PCI"
+    MMI = "MMI"
+    DT_IT = "DT, IT"
+    SYSTEM = "System" 
+
+
+
 class AccessControlMatrix:
     def __init__(self):
         # Initialize an empty matrix
         self.matrix = {}
+        
+        for role,rights in zip(Roles,Rights):
+            self.add_role(role)
+            for resource ,right in zip(Resources, rights.value):
+                self.add_resource(role,resource,right)
 
     def add_role(self, role):
         # Add a new role to the matrix
@@ -20,50 +61,30 @@ class AccessControlMatrix:
             return self.matrix[role][resource]
         else:
             return None
+        
+    def get_role(self, rolename):
+        if rolename in self.matrix:
+            return self.matrix[rolename]
+        else:
+            return None
 
-    def display_matrix(self):
+    def __str__(self):
         # Display the access control matrix
-        header = ["Roles/Resources"] + list(self.matrix[list(self.matrix.keys())[0]].keys())
-        rows = [header]
+        header ={ }
+        
+        
+        for roles in self.matrix:
+            header[roles] =  self.matrix[roles]
 
-        for role, resource_access in self.matrix.items():
-            row = [role] + [access for access in resource_access.values()]
-            rows.append(row)
-
-        for row in rows:
-            print("|".join(row))
-
+        s="Roles/Resources : {}\n".format([r.value for r in Resources])
+        for key, value in self.matrix.items():
+            
+            s+= "{} : {}\n".format(key.name,list(value.values()))
+        
+        return s
 
 # Example Usage:
 
 # Create an instance of the AccessControlMatrix
 acm = AccessControlMatrix()
-
-# Add roles to the matrix
-roles = ["Client", "Premium Client", "Financial Planner", "Financial Advisor",
-         "Investment Analyst", "Technical Support", "Teller", "Compliance Officer"]
-
-for role in roles:
-    acm.add_role(role)
-
-# Add resources and access rights to each role
-resources = ["AB", "CI", "RAC", "IP", "FAD", "IAD", "PCI", "MMI", "DT, IT", "System"]
-
-access_rights = [
-    ["R--", "---", "---", "R--", "R--", "---", "---", "---", "---", "---"],
-    ["R--", "---", "---", "RW-", "R--", "R--", "---", "---", "---", "---"],
-    ["R--", "---", "---", "RW-", "---", "---", "R--", "R--", "---", "---"],
-    ["R--", "---", "---", "RW-", "RW-", "---", "R--", "---", "---", "---"],
-    ["R--", "---", "---", "RW-", "---", "RW-", "R--", "R--", "R--", "---"],
-    ["---", "R--", "--X", "---", "---", "---", "---", "---", "---", "---"],
-    ["R--", "---", "---", "R--", "---", "---", "---", "---", "---", "R-X"],
-    ["R--", "---", "---", "R--", "---", "---", "---", "---", "---", "---"]
-]
-
-for role, access in zip(roles, access_rights):
-    for resource, rights in zip(resources, access):
-        acm.add_resource(role, resource, rights)
-
-# Display the access control matrix
-acm.display_matrix()
-print(acm.get_access("Client","AB"))
+print (acm)
