@@ -17,8 +17,8 @@ class User:
     def to_string(self):
         return f"{self.username}:{self.salt.decode('utf-8')}:{self.salted_hash.decode('utf-8')}:{self.group_id}:{self.user_id}:{self.home_dir}"
 
-def write_pass_word_file(users:list[User]):
-    passfile = "/etc/passwd.txt"
+def write_pass_word_file(users):
+    passfile = "passwd.txt"
     
     print(os.path.isfile(passfile))
     

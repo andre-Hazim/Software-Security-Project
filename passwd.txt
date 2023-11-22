@@ -1,0 +1,2 @@
+new_user:$2b$12$ulPWA7YJRqKZI3lxSWiDtO:$2b$12$ulPWA7YJRqKZI3lxSWiDtOgAUA0SNnV6qBOw6zRLDvAZlXK9su6Ni:new_group:new_id:/home
+new_user2:$2b$12$USEKzsCxCFvDsDXXHElB.u:$2b$12$USEKzsCxCFvDsDXXHElB.uD0jjwPy/gFIlagt623roNfTBChG5/Pa:new_group:new_id:/home
