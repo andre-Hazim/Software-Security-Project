@@ -11,14 +11,14 @@ class Rights(Enum):
     COMPLIANCE_OFFICER = ["R--", "---", "---", "R--", "---", "---", "---", "---", "---", "---"]
 
 class Roles(Enum):
-    CLIENT = "Client"
-    PREMIUM_CLIENT = "Premium Client"
-    FINANCIAL_PLANNER = "Financial Planner"
-    FINANCIAL_ADVISOR = "Financial Advisor"
-    INVESTMENT_ANALYST = "Investment Analyst"
-    TECHNICAL_SUPPORT = "Technical Support"
-    TELLER = "Teller"
-    COMPLIANCE_OFFICER = "Compliance Officer"
+    CLIENT = "basic client"
+    PREMIUM_CLIENT = "premium client"
+    FINANCIAL_PLANNER = "financial planner"
+    FINANCIAL_ADVISOR = "financial advisor"
+    INVESTMENT_ANALYST = "investment analyst"
+    TECHNICAL_SUPPORT = "technical support"
+    TELLER = "teller"
+    COMPLIANCE_OFFICER = "compliance officer"
 
 class Resources(Enum):
     AB = "AB"
@@ -40,15 +40,15 @@ class AccessControlMatrix:
         self.matrix = {}
         
         for role,rights in zip(Roles,Rights):
-            self.add_role(role)
+            self._add_role(role)
             for resource ,right in zip(Resources, rights.value):
-                self.add_resource(role,resource,right)
+                self._add_resource(role,resource.name,right)
 
-    def add_role(self, role):
+    def _add_role(self, role):
         # Add a new role to the matrix
         self.matrix[role] = {}
 
-    def add_resource(self, role, resource, access):
+    def _add_resource(self, role, resource:Resources, access):
         # Add a resource with its access rights to a role
         if role not in self.matrix:
             raise ValueError(f"Role '{role}' does not exist in the matrix.")
@@ -84,7 +84,5 @@ class AccessControlMatrix:
         return s
 
 # Example Usage:
-
-# Create an instance of the AccessControlMatrix
 acm = AccessControlMatrix()
-print (acm)
+#print(acm.get_role(Roles.CLIENT))

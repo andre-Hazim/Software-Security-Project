@@ -1,26 +1,43 @@
 import os
 import bcrypt
+from accessMatrix import Roles
 
 class User:
-    def __init__(self, username:str, password:str, group_id:int, user_id:int,home_dir:str):
+    def __init__(self, username:str, password:str, group:str, user_id:int, salt=bcrypt.gensalt()):
         self.username = username
-        self.salt = bcrypt.gensalt()
+        self.salt = salt
         self.salted_hash = bcrypt.hashpw(password.encode('utf-8'), self.salt)
-        self.group_id = group_id
+        self.group= group
         self.user_id = user_id
-        self.home_dir = home_dir
+        self.home_dir = f'/home/{self.username}'
 
     def verify_password(self, entered_password):
         hashed_entered_password = bcrypt.hashpw(entered_password.encode('utf-8'), self.salt)
         return hashed_entered_password == self.salted_hash
 
     def to_string(self):
-        return f"{self.username}:{self.salt.decode('utf-8')}:{self.salted_hash.decode('utf-8')}:{self.group_id}:{self.user_id}:{self.home_dir}"
+        return f"{self.username}:{self.salt.decode('utf-8')}:{self.salted_hash.decode('utf-8')}:{self.group}:{self.user_id}:{self.home_dir}"
 
-def write_pass_word_file(users):
-    passfile = "passwd.txt"
-    
-    print(os.path.isfile(passfile))
+def read_password_file(file_path)-> list[User]:
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+
+    users = []
+    if not len(lines) ==0:
+        for line in lines:
+            parts = line.strip().split(':')
+            username, salt, salted_hash, group, user_id, homedir = parts
+            user = User(username, '', group, user_id)
+            user.salt = salt.encode('utf-8')
+            user.salted_hash = salted_hash.encode('utf-8')
+            users.append(user)
+
+        return users
+    else:
+        return []
+
+def write_pass_word_file(users, passfile= "passwd.txt"):
+
     
     # Check if the file exists; if not, create it
     if not os.path.isfile(passfile):
@@ -34,10 +51,4 @@ def write_pass_word_file(users):
         for user in users:
             file.write(user.to_string() + "\n")
 
-existing_users = []
-new_user = User("new_user", "new_password", "new_group", "new_id", "/home")
-existing_users.append(new_user)
-new_user = User("new_user2", "new_password", "new_group", "new_id","/home")
-existing_users.append(new_user)
 
-write_pass_word_file(existing_users)

@@ -1,2 +1,1 @@
-new_user:$2b$12$ulPWA7YJRqKZI3lxSWiDtO:$2b$12$ulPWA7YJRqKZI3lxSWiDtOgAUA0SNnV6qBOw6zRLDvAZlXK9su6Ni:new_group:new_id:/home
-new_user2:$2b$12$USEKzsCxCFvDsDXXHElB.u:$2b$12$USEKzsCxCFvDsDXXHElB.uD0jjwPy/gFIlagt623roNfTBChG5/Pa:new_group:new_id:/home
+andrehazim:$2b$12$fa7ayeSUj8EVHf7ouAVDt.:$2b$12$fa7ayeSUj8EVHf7ouAVDt.2FRLv3/wCz5CQ62MAZpYGvYKMqFLpKe:basic client:0:/home/andrehazim
