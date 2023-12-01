@@ -3,7 +3,7 @@ import bcrypt
 from accessMatrix import Roles
 
 class User:
-    def __init__(self, username:str, password:str, group:str, user_id:int, salt=bcrypt.gensalt()):
+    def __init__(self, username:str, password:str, group:Roles, user_id:int, salt=bcrypt.gensalt()):
         self.username = username
         self.salt = salt
         self.salted_hash = bcrypt.hashpw(password.encode('utf-8'), self.salt)
@@ -27,7 +27,10 @@ def read_password_file(file_path)-> list[User]:
         for line in lines:
             parts = line.strip().split(':')
             username, salt, salted_hash, group, user_id, homedir = parts
-            user = User(username, '', group, user_id)
+            for r in Roles:
+                if r.value == group:
+                    group_Enum= r
+            user = User(username, '', group_Enum, user_id)
             user.salt = salt.encode('utf-8')
             user.salted_hash = salted_hash.encode('utf-8')
             users.append(user)

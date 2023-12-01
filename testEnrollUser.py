@@ -1,4 +1,5 @@
 from enrollUser import * 
+import accessMatrix 
 import unittest
 
 class TestPasswordChecker(unittest.TestCase):
@@ -6,6 +7,7 @@ class TestPasswordChecker(unittest.TestCase):
     def setUp(self):
         # Assuming you have an instance of the class containing checkPass
         self.password_checker = PassChecker()
+        self.ui = UserInterface()
 
     def test_valid_password(self):
         # Test with a valid password
@@ -77,6 +79,19 @@ class TestPasswordChecker(unittest.TestCase):
         # Test with a password that matches the user ID
         result = self.password_checker.checkPass("user123", "user123")
         self.assertFalse(result)
+
+    def test_check_group(self):
+        good_group = []
+        for r in accessMatrix.Roles:
+            self.ui.group = r.value
+            good_group.append(self.ui.checkGroup())
+        self.assertTrue(all(good_group))
+    
+    def test_check_group_not_in(self):
+        self.ui.group = "super client"
+        self.assertFalse(self.ui.checkGroup())
+
+            
 
 if __name__ == '__main__':
     unittest.main()

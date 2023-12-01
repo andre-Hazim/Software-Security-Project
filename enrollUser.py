@@ -21,19 +21,26 @@ class UserInterface():
         print("common numbers are be prohibited")
         print("Passwords matching the user ID are be prohibited")
 
+
+    def checkGroup(self):
+        good_group = False;
+        for r in accessMatrix.Roles:
+                if self.group == str(r.value):
+                    good_group = True
+        if not good_group:
+            print("group not found\npick from these:")
+            for r in accessMatrix.Roles:
+                print(r.value)
+        return good_group
+
     def enrollUser(self):
         self.userid = len(read_password_file("passwd.txt"))
         self.username = input('Enter your username:')
         self.group = input('Enter your group:')
         good_group= False
         while not good_group:
-            for r in accessMatrix.Roles:
-                if self.group == str(r.value):
-                    good_group = True
+            good_group = self.checkGroup()
             if not good_group:
-                print("group not found\npick from these:")
-                for r in accessMatrix.Roles:
-                    print(r.value)
                 self.group = input('Enter your group:')    
         self.password = input('Enter your password:')
         double_pass = input ("Enter password again:")

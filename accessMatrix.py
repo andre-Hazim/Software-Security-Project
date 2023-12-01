@@ -42,13 +42,13 @@ class AccessControlMatrix:
         for role,rights in zip(Roles,Rights):
             self._add_role(role)
             for resource ,right in zip(Resources, rights.value):
-                self._add_resource(role,resource.name,right)
+                self._add_resource(role,resource.value,right)
 
     def _add_role(self, role):
         # Add a new role to the matrix
         self.matrix[role] = {}
 
-    def _add_resource(self, role, resource:Resources, access):
+    def _add_resource(self, role, resource:str, access):
         # Add a resource with its access rights to a role
         if role not in self.matrix:
             raise ValueError(f"Role '{role}' does not exist in the matrix.")
@@ -62,7 +62,7 @@ class AccessControlMatrix:
         else:
             return None
         
-    def get_role(self, rolename):
+    def get_role(self, rolename:Roles):
         if rolename in self.matrix:
             return self.matrix[rolename]
         else:
@@ -84,5 +84,5 @@ class AccessControlMatrix:
         return s
 
 # Example Usage:
-acm = AccessControlMatrix()
+#acm = AccessControlMatrix()
 #print(acm.get_role(Roles.CLIENT))
