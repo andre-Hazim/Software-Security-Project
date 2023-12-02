@@ -36,7 +36,7 @@ class UserInterface():
     def enrollUser(self):
         self.userid = len(read_password_file("passwd.txt"))
         self.username = input('Enter your username:')
-        self.group = input('Enter your group:')
+        self.group = input('Enter your group:').lower()
         good_group= False
         while not good_group:
             good_group = self.checkGroup()
