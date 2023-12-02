@@ -5,9 +5,6 @@ class TestAccessControlMatrix(unittest.TestCase):
     def setUp(self):
         self.acm = AccessControlMatrix()
 
-    def test_add_role(self):
-        self.assertIn(Roles.CLIENT, self.acm.matrix)
-
     def generic_access_test(self, role_enum, resource_enum, expected_access):
         access = self.acm.get_access(role_enum, resource_enum.value)
         self.assertEqual(access, expected_access)

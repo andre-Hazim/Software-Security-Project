@@ -28,7 +28,7 @@ class TestPasswordFileIO(unittest.TestCase):
         users = read_password_file(self.temp_file.name)
         self.assertEqual(len(users), 2)
         self.assertEqual(users[0].username, "user1")
-        self.assertEqual(users[1].salt, b"salt2")  # Assuming password is the plaintext password used during User creation
+        self.assertEqual(users[1].salt, b"salt2") 
 
     def test_write_pass_word_file(self):
         # Create some sample users
@@ -43,7 +43,6 @@ class TestPasswordFileIO(unittest.TestCase):
         with open(self.temp_file.name, 'r') as file:
             written_content = file.read()
 
-        expected_content = "user1:salt1:hash1:group1:1:/home/user1\nuser2:salt2:hash2:group2:2:/home/user2\n"
         self.assertTrue("user1" in written_content)
 
     def test_verify_password(self):

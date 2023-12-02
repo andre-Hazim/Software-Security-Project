@@ -27,6 +27,7 @@ def read_password_file(file_path)-> list[User]:
         for line in lines:
             parts = line.strip().split(':')
             username, salt, salted_hash, group, user_id, homedir = parts
+            group_Enum = None
             for r in Roles:
                 if r.value == group:
                     group_Enum= r
