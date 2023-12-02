@@ -17,6 +17,7 @@ def loginscreen():
             password = input("Password:")
             if(login(userid, password)):
                 resource = ""
+                print(f"Welcome {global_user.username}\n{global_user.group.value}")
                 print("enter resource or 'help' for list")
                 print("Type 'logout' to logout")
                 while not resource == "logout":
