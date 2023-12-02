@@ -21,9 +21,10 @@ def loginscreen():
                 print("Type 'logout' to logout")
                 while not resource == "logout":
                     resource = input("Request Resource: ")
-                    response = logged_in(resource)
+                    response = logged_in(resource.upper())
                     print(response)
-            
+            else:
+                print("Wrong Username/Password")
         elif answer.lower() == "exit":
             exit()
        
@@ -37,7 +38,7 @@ def login(userid, password, passwordFilePath='passwd.txt'):
         if u.user_id == userid and u.verify_password(password):
             can_login = True
             global_user = u
-    if can_login and global_user.group == Roles.TELLER.value:
+    if can_login and global_user.group == Roles.TELLER:
          # Get the current time
             currentTime = datetime.now().time()
 
@@ -58,9 +59,9 @@ def login(userid, password, passwordFilePath='passwd.txt'):
 def logged_in(resource:str):
     global global_user, global_acm
     right = str()
-    if resource == "help":
+    if resource == "HELP":
         return str(list(r.value for r in Resources))
-    elif resource == "logout":
+    elif resource == "LOGOUT":
         return ""
     right = global_acm.get_access(global_user.group, resource)
     if (right == '---'):
