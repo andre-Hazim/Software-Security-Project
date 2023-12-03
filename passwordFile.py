@@ -1,7 +1,7 @@
 import os
 import bcrypt
 from accessMatrix import Roles
-
+from typing import List
 class User:
     def __init__(self, username:str, password:str, group:Roles, user_id:int, salt=bcrypt.gensalt()):
         self.username = username
@@ -18,7 +18,7 @@ class User:
     def to_string(self):
         return f"{self.username}:{self.salt.decode('utf-8')}:{self.salted_hash.decode('utf-8')}:{self.group}:{self.user_id}:{self.home_dir}"
 
-def read_password_file(file_path)-> list[User]:
+def read_password_file(file_path)-> List[User]:
     with open(file_path, 'r') as file:
         lines = file.readlines()
 

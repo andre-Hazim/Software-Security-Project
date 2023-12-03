@@ -3,3 +3,4 @@ jim:$2b$12$dP5DLZcZdx/H.G7.Tzjms.:$2b$12$dP5DLZcZdx/H.G7.Tzjms..v816hk5cFI9RomrG
 veronicasaro:$2b$12$Xx1WL7PHV3wLhMNt0mHPIu:$2b$12$Xx1WL7PHV3wLhMNt0mHPIu71zkagEn3AavcWwDfyvwt7VH04WGjoK:teller:2:/home/veronicasaro
 guy:$2b$12$8x/QnzLQDqKWzFFcg/BB.O:$2b$12$8x/QnzLQDqKWzFFcg/BB.OjOtDFt3iKh5W7i4nqzxiG9P2zceeE0a:financial advisor:3:/home/guy
 uer:$2b$12$Vc2pFC7eqtUJxl/MmOxtDu:$2b$12$Vc2pFC7eqtUJxl/MmOxtDuG4PWEZO8a84LhNQ6sJ.gYPZf7pwGFDq:regular client:4:/home/uer
+bob:$2b$12$Iq2uFXLouoy3P4igKBKVcu:$2b$12$Iq2uFXLouoy3P4igKBKVcuC/fuLTXH7Z02kOQwLyqSPkt.P2nSvey:financial advisor:5:/home/bob
